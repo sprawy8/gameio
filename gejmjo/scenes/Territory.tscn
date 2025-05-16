@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://d28a6qiqqwoft"]
+
+[ext_resource type="Script" uid="uid://i1xesdxs1ifa" path="res://scripts/Territory.gd" id="1_uomay"]
+
+[node name="Territory" type="Area2D" groups=["territories"]]
+script = ExtResource("1_uomay")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(78, 31, 192, 292, 460, 116)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 454.0
+offset_top = 260.0
+offset_right = 494.0
+offset_bottom = 283.0
+text = "0"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(80, 32, 192, 290, 461, 116, 80, 33)

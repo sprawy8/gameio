@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxa6di6mlksyh"]
+
+[ext_resource type="Script" uid="uid://c7e77sodoqwvj" path="res://scripts/Map.gd" id="1_lajc7"]
+[ext_resource type="PackedScene" uid="uid://d28a6qiqqwoft" path="res://scenes/Territory.tscn" id="2_xkm8s"]
+
+[node name="Map" type="Node2D"]
+script = ExtResource("1_lajc7")
+
+[node name="Territory" parent="." instance=ExtResource("2_xkm8s")]
+position = Vector2(552, 40)
+
+[node name="Territory2" parent="." instance=ExtResource("2_xkm8s")]
+position = Vector2(7, 45)
+
+[node name="Territory3" parent="." instance=ExtResource("2_xkm8s")]
+position = Vector2(343, 343)
