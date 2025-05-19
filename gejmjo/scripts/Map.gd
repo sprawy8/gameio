@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var territories := []
+@onready var troop_slider := $CanvasLayer/PlayerUI/Player0Slider
+@onready var slider_label := $CanvasLayer/PlayerUI/SliderLabel
 
 #Growth of troops
 var growth_interval = 1.0 # seconds
@@ -9,6 +11,10 @@ var growth_amount = 5
 func _ready():
 	territories = get_tree().get_nodes_in_group("territories")
 	assign_initial_owners()
+	
+	troop_slider.connect("value_changed", Callable(self, "_on_slider_value_changed"))
+	_on_slider_value_changed(troop_slider.value) # update label initially
+	
 	var timer = Timer.new()
 	timer.wait_time = growth_interval
 	timer.one_shot = false
@@ -16,6 +22,9 @@ func _ready():
 	add_child(timer)
 	timer.connect("timeout", Callable(self, "_on_growth_timer_timeout"))
 
+func _on_slider_value_changed(value):
+	slider_label.text = "Send: " + str(value) + "%"
+	
 func _on_growth_timer_timeout():
 	for territory in get_tree().get_nodes_in_group("territories"):
 		territory.troop_count += growth_amount
@@ -50,7 +59,8 @@ func on_territory_clicked(territory):
 			selected_source = null
 
 func send_troops(source, target):
-	var troops_to_send = int(source.troop_count / 2)
+	var send_percent = troop_slider.value / 100.0
+	var troops_to_send = int(source.troop_count * send_percent)
 	if troops_to_send == 0:
 		print("Not enough troops to send")
 		return
