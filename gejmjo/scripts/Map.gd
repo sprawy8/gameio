@@ -4,7 +4,7 @@ extends Node2D
 
 #Growth of troops
 var growth_interval = 1.0 # seconds
-var growth_amount = 1
+var growth_amount = 5
 
 func _ready():
 	territories = get_tree().get_nodes_in_group("territories")
@@ -28,7 +28,8 @@ var selected_territory = null
 func on_territory_clicked(territory):
 	if selected_source == null:
 	# Select source territory owned by current player (assume player 0 for now)
-		if territory.owner_id == 0:
+	# Changed for tests so that its possible to try each territory.
+		if territory.owner_id == 0 || territory.owner_id == 1 || territory.owner_id == 2:
 			selected_source = territory
 			territory.set_selected(true)
 			print("Source selected: ", territory.owner_id)
@@ -72,5 +73,6 @@ func assign_initial_owners():
 
 	for i in range(min(territories.size(), player_colors.size())):
 		territories[i].assign_owner(i, player_colors[i])
-		territories[i].troop_count = randi_range(20, 50)
+		#territories[i].troop_count = randi_range(20, 50)
+		territories[i].troop_count = 50
 		territories[i].update_display()
