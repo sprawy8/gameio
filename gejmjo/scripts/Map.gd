@@ -8,6 +8,7 @@ extends Node2D
 var growth_interval = 1.0 # seconds
 var growth_amount = 5
 
+
 func _ready():
 	territories = get_tree().get_nodes_in_group("territories")
 	assign_initial_owners()
@@ -59,6 +60,9 @@ func on_territory_clicked(territory):
 			selected_source = null
 
 func send_troops(source, target):
+	if target.territory_id not in source.neighbor_ids:
+		print("Can't attack non-neighboring territory!")
+		return
 	var send_percent = troop_slider.value / 100.0
 	var troops_to_send = int(source.troop_count * send_percent)
 	if troops_to_send == 0:
@@ -81,8 +85,25 @@ func assign_initial_owners():
 		Color.GREEN,
 	]
 
-	for i in range(min(territories.size(), player_colors.size())):
-		territories[i].assign_owner(i, player_colors[i])
-		#territories[i].troop_count = randi_range(20, 50)
-		territories[i].troop_count = 50
-		territories[i].update_display()
+	for i in range(territories.size()):
+		var territory = territories[i]
+		territory.territory_id = i
+		# For now, assign the first few territories to players, the rest remain neutral
+		if i < player_colors.size():
+			territory.assign_owner(i, player_colors[i])
+		else:
+			territory.assign_owner(-1, Color(0.7, 0.7, 0.7))  # Neutral color
+		territory.troop_count = 50
+		territory.update_display()
+	# Manually define neighbors for now
+	# Format: territory_id : [neighbor_ids]
+	var neighbor_map = {
+		0: [1, 2],
+		1: [0, 2],
+		2: [0, 1]
+	}
+
+	for id in neighbor_map.keys():
+		territories[id].neighbor_ids = neighbor_map[id]
+		print("Territory ID:", id, " Neighbor_ids:", territories[id].neighbor_ids)
+	
