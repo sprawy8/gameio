@@ -14,3 +14,21 @@ position = Vector2(7, 45)
 
 [node name="Territory3" parent="." instance=ExtResource("2_xkm8s")]
 position = Vector2(343, 343)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(800, 20)
+transform = Transform2D(1, 0, 0, 1, 800, 20)
+
+[node name="PlayerUI" type="VBoxContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SliderLabel" type="Label" parent="CanvasLayer/PlayerUI"]
+layout_mode = 2
+text = "Attacking Troops %"
+
+[node name="Player0Slider" type="HSlider" parent="CanvasLayer/PlayerUI"]
+layout_mode = 2
+min_value = 10.0
+max_value = 90.0
+value = 50.0

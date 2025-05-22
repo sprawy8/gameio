@@ -9,11 +9,13 @@ script = ExtResource("1_uomay")
 polygon = PackedVector2Array(78, 31, 192, 292, 460, 116)
 
 [node name="Label" type="Label" parent="."]
-offset_left = 454.0
-offset_top = 260.0
-offset_right = 494.0
-offset_bottom = 283.0
+offset_left = 272.0
+offset_top = 261.0
+offset_right = 312.0
+offset_bottom = 284.0
 text = "0"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(80, 32, 192, 290, 461, 116, 80, 33)
+polygon = PackedVector2Array(78, 31, 192, 292, 460, 116)
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
