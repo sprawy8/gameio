@@ -6,7 +6,7 @@ extends Node2D
 
 #Growth of troops
 var growth_interval = 1.0 # seconds
-var growth_amount = 5
+var growth_amount = 20
 
 
 func _ready():
@@ -98,9 +98,9 @@ func assign_initial_owners():
 	# Manually define neighbors for now
 	# Format: territory_id : [neighbor_ids]
 	var neighbor_map = {
-		0: [1, 2],
-		1: [0, 2],
-		2: [0, 1]
+		0: [-1],
+		1: [-1],
+		2: [-1]
 	}
 
 	for id in neighbor_map.keys():
